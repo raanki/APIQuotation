@@ -49,4 +49,19 @@ public class QuotationController
     {
         service.delete(id);
     }
+
+    @GetMapping("/random")
+    public QuotationDTO getRandom()
+    {
+        Quotation q = service.getRandom();
+        return (q != null) ? QuotationMapper.toDTO(q) : null;
+    }
+
+    @GetMapping("/random/category/{categoryId}")
+    public QuotationDTO getRandomByCategory(@PathVariable Integer categoryId)
+    {
+        Quotation q = service.getRandomByCategory(categoryId);
+        return (q != null) ? QuotationMapper.toDTO(q) : null;
+    }
+
 }

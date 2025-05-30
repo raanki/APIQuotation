@@ -3,6 +3,8 @@ package fr.quotation.APIQuotation.Quotation;
 import fr.quotation.APIQuotation.Category.Category;
 import fr.quotation.APIQuotation.Category.CategoryRepository;
 import org.springframework.stereotype.Service;
+import java.util.Random;
+
 
 import java.util.List;
 
@@ -49,4 +51,24 @@ public class QuotationService
     {
         quotationRepo.deleteById(id);
     }
+
+
+    public Quotation getRandom()
+    {
+        List<Quotation> list = quotationRepo.findAll();
+        if (list.isEmpty()) return null;
+        return list.get(new Random().nextInt(list.size()));
+    }
+
+    public Quotation getRandomByCategory(Integer categoryId)
+    {
+        List<Quotation> list = quotationRepo.findAll()
+                .stream()
+                .filter(q -> q.getCategory().getId().equals(categoryId))
+                .toList();
+
+        if (list.isEmpty()) return null;
+        return list.get(new Random().nextInt(list.size()));
+    }
+
 }
