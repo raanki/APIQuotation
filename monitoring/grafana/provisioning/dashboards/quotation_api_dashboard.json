@@ -1,81 +1,78 @@
 {
   "title": "Quotation API Dashboard",
-  "dashboard": {
-    "id": null,
-    "uid": null,
-    "title": "Quotation API Dashboard",
-    "tags": [
-      "quotation",
-      "monitoring"
-    ],
-    "timezone": "browser",
-    "schemaVersion": 30,
-    "version": 1,
-    "refresh": "10s",
-    "panels": [
-      {
-        "type": "graph",
-        "title": "HTTP Requests Rate",
-        "gridPos": {
-          "x": 0,
-          "y": 0,
-          "w": 24,
-          "h": 9
-        },
-        "targets": [
-          {
-            "expr": "http_requests_total",
-            "legendFormat": "{{method}} {{handler}}",
-            "interval": "",
-            "refId": "A"
-          }
-        ]
+  "uid": null,
+  "id": null,
+  "tags": [
+    "quotation",
+    "monitoring"
+  ],
+  "timezone": "browser",
+  "schemaVersion": 30,
+  "version": 1,
+  "refresh": "10s",
+  "overwrite": true,
+  "panels": [
+    {
+      "type": "graph",
+      "title": "HTTP Requests Rate",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 9
       },
-      {
-        "type": "graph",
-        "title": "Request Duration",
-        "gridPos": {
-          "x": 0,
-          "y": 9,
-          "w": 24,
-          "h": 9
-        },
-        "targets": [
-          {
-            "expr": "http_request_duration_seconds_sum / http_request_duration_seconds_count",
-            "legendFormat": "avg duration",
-            "interval": "",
-            "refId": "A"
-          }
-        ]
-      },
-      {
-        "type": "stat",
-        "title": "Uptime",
-        "gridPos": {
-          "x": 0,
-          "y": 18,
-          "w": 12,
-          "h": 6
-        },
-        "targets": [
-          {
-            "expr": "time() - process_start_time_seconds",
-            "refId": "A"
-          }
-        ],
-        "options": {
-          "reduceOptions": {
-            "calcs": [
-              "last"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "orientation": "horizontal"
+      "targets": [
+        {
+          "expr": "http_requests_total",
+          "legendFormat": "{{method}} {{handler}}",
+          "interval": "",
+          "refId": "A"
         }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Request Duration",
+      "gridPos": {
+        "x": 0,
+        "y": 9,
+        "w": 24,
+        "h": 9
+      },
+      "targets": [
+        {
+          "expr": "http_request_duration_seconds_sum / http_request_duration_seconds_count",
+          "legendFormat": "avg duration",
+          "interval": "",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Uptime",
+      "gridPos": {
+        "x": 0,
+        "y": 18,
+        "w": 12,
+        "h": 6
+      },
+      "targets": [
+        {
+          "expr": "time() - process_start_time_seconds",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal"
       }
-    ]
-  },
-  "overwrite": true
+    }
+  ]
 }
