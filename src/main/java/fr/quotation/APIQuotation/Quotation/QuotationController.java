@@ -1,6 +1,7 @@
 package fr.quotation.APIQuotation.Quotation;
 
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,17 +52,23 @@ public class QuotationController
     }
 
     @GetMapping("/random")
-    public QuotationDTO getRandom()
+    public ResponseEntity<?> getRandom()
     {
         Quotation q = service.getRandom();
-        return (q != null) ? QuotationMapper.toDTO(q) : null;
+        return (q != null)
+                ? ResponseEntity.ok(QuotationMapper.toDTO(q))
+                : ResponseEntity.ok().body(new QuotationDTO());
     }
 
+
     @GetMapping("/random/category/{categoryId}")
-    public QuotationDTO getRandomByCategory(@PathVariable Integer categoryId)
+    public ResponseEntity<?> getRandomByCategory(@PathVariable Integer categoryId)
     {
         Quotation q = service.getRandomByCategory(categoryId);
-        return (q != null) ? QuotationMapper.toDTO(q) : null;
+        return (q != null)
+                ? ResponseEntity.ok(QuotationMapper.toDTO(q))
+                : ResponseEntity.ok(List.of());
     }
+
 
 }

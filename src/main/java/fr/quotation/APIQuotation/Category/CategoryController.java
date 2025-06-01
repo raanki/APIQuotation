@@ -19,13 +19,18 @@ public class CategoryController
     @GetMapping
     public List<CategoryDTO> getAll()
     {
-        return service.findAll().stream()
+        List<Category> categories = service.findAll();
+
+        if (categories.isEmpty())
+            return List.of();
+
+        return categories.stream()
                 .map(CategoryMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
     @PostMapping
-    public CategoryDTO create(@Valid @RequestBody CategoryDTO dto)
+    public CategoryDTO create(@Valid @RequestBody CategoryCreateDTO dto)
     {
         Category saved = service.save(CategoryMapper.toEntity(dto));
         return CategoryMapper.toDTO(saved);
@@ -40,12 +45,11 @@ public class CategoryController
     }
 
     @PutMapping("/{id}")
-    public CategoryDTO update(@PathVariable Integer id, @Valid @RequestBody CategoryDTO dto)
+    public CategoryDTO update(@PathVariable Integer id, @Valid @RequestBody CategoryCreateDTO dto)
     {
         Category updated = service.update(id, dto);
         return CategoryMapper.toDTO(updated);
     }
-
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id)

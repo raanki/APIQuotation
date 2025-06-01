@@ -35,7 +35,7 @@ public class CategoryService
         repository.deleteById(id);
     }
 
-    public Category update(Integer id, CategoryDTO dto)
+    public Category update(Integer id, CategoryCreateDTO dto)
     {
         Category category = repository.findById(id).orElseThrow();
         category.setName(dto.getName());

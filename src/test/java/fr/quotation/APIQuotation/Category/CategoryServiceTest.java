@@ -59,7 +59,7 @@ class CategoryServiceTest
         when(repository.findById(1)).thenReturn(Optional.of(entity));
         when(repository.save(any())).thenReturn(entity);
 
-        CategoryDTO dto = new CategoryDTO();
+        CategoryCreateDTO dto = new CategoryCreateDTO();
         dto.setName("Updated");
 
         Category result = service.update(1, dto);

@@ -9,7 +9,7 @@ class CategoryMapperTest
     @Test
     void shouldConvertDtoToEntity()
     {
-        CategoryDTO dto = new CategoryDTO();
+        CategoryCreateDTO dto = new CategoryCreateDTO();
         dto.setName("Inspiration");
 
         Category entity = CategoryMapper.toEntity(dto);
@@ -22,7 +22,7 @@ class CategoryMapperTest
         Category entity = new Category();
         entity.setName("Inspiration");
 
-        CategoryDTO dto = CategoryMapper.toDTO(entity);
+        CategoryCreateDTO dto = CategoryMapper.toCreateDTO(entity);
         assertEquals("Inspiration", dto.getName());
     }
 }

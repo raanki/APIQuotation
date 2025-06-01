@@ -30,14 +30,14 @@ class CategoryControllerTest
     private CategoryService service;
 
     private ObjectMapper mapper;
-    private CategoryDTO dto;
+    private CategoryCreateDTO dto;
     private Category entity;
 
     @BeforeEach
     void setup()
     {
         mapper = new ObjectMapper();
-        dto = new CategoryDTO();
+        dto = new CategoryCreateDTO();
         dto.setName("Inspiration");
 
         entity = new Category();
