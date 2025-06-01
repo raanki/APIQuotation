@@ -1,18 +1,19 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
+import { useEffect, useState } from "react"
+import { useParams, useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
-import { createQuotation } from "@/api/quotations"
+import { Button } from "@/components/ui/button"
+import { getQuotationById, updateQuotation } from "@/api/quotations"
 import { getAllCategories } from "@/api/categories"
 
-export default function NewQuotationPage() {
+export default function EditQuotationPage() {
+    const { id } = useParams()
+    const router = useRouter()
     const [content, setContent] = useState("")
     const [author, setAuthor] = useState("")
     const [categoryId, setCategoryId] = useState("")
     const [categories, setCategories] = useState<{ id: number, name: string }[]>([])
-    const router = useRouter()
 
     useEffect(() => {
         getAllCategories().then((data) => {
@@ -21,26 +22,39 @@ export default function NewQuotationPage() {
                 setCategories(data)
             }
         })
-    }, [])
 
-    const handleSubmit = async () => {
-        console.log("categoryId => ", categoryId)
-        await createQuotation({ content, author, categoryId: parseInt(categoryId) })
-        router.push("/")
+        if (id)
+        {
+            getQuotationById(Number(id)).then((q) => {
+                if (q)
+                {
+                    setContent(q.content)
+                    setAuthor(q.author)
+                    setCategoryId(q.category?.id?.toString() || "")
+                }
+            })
+        }
+    }, [id])
+
+    const handleUpdate = async () => {
+        await updateQuotation(Number(id), {
+            content,
+            author,
+            categoryId: parseInt(categoryId),
+        })
+        router.push("/quotation/manage")
     }
 
     return (
         <main className="relative p-6 min-h-screen">
-            {/* Bouton retour en haut à gauche de la page */}
             <div className="absolute top-6 left-6">
                 <Button variant="outline" onClick={() => router.push("/quotation/manage")}>
                     ← Retour
                 </Button>
             </div>
 
-            {/* Formulaire centré */}
             <div className="flex flex-col gap-4 max-w-md mx-auto mt-20">
-                <h1 className="text-xl font-bold">Nouvelle citation</h1>
+                <h1 className="text-xl font-bold">Modifier la citation</h1>
                 <Input placeholder="Contenu" value={content} onChange={(e) => setContent(e.target.value)} />
                 <Input placeholder="Auteur" value={author} onChange={(e) => setAuthor(e.target.value)} />
 
@@ -57,7 +71,7 @@ export default function NewQuotationPage() {
                     ))}
                 </select>
 
-                <Button onClick={handleSubmit}>Créer</Button>
+                <Button onClick={handleUpdate}>Enregistrer</Button>
             </div>
         </main>
     )

@@ -43,3 +43,7 @@ export function getRandomQuotation() {
 export function getRandomByCategory(categoryId: number) {
     return apiFetch(`/quotations/random/category/${categoryId}`)
 }
+
+export function getQuotationById(id: number) {
+    return apiFetch(`/quotations/${id}`)
+}

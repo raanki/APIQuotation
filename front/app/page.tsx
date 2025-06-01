@@ -25,14 +25,15 @@ export default function Home() {
     }, [])
 
     return (
-        <main className="p-6 min-h-screen flex flex-col justify-center items-center gap-10">
-            {/* Boutons à droite */}
-            <div className="flex flex-col gap-2 items-end self-end">
-                <Button className="w-[120px]" variant="outline" onClick={() => router.push("/quotation/new")}>
-                    + citation
+        <main className="relative p-6 min-h-screen flex flex-col justify-center items-center gap-10">
+
+            {/* Boutons en haut à droite */}
+            <div className="absolute top-6 right-6 flex flex-col gap-2 items-end">
+                <Button className="w-[130px]" variant="outline" onClick={() => router.push("/quotation/manage")}>
+                    Gérer les citations
                 </Button>
-                <Button className="w-[120px]" variant="default" onClick={() => router.push("/category/new")}>
-                    + catégorie
+                <Button className="w-[130px]" variant="default" onClick={() => router.push("/category/manage")}>
+                    Gérer les catégories
                 </Button>
             </div>
 
@@ -49,5 +50,6 @@ export default function Home() {
                 <RotateCcw className="h-5 w-5" />
             </Button>
         </main>
+
     )
 }
