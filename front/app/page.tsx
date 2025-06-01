@@ -3,49 +3,51 @@
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { getRandomQuotation } from "@/api/quotations"
-import { getAllCategories } from "@/api/categories"
 import { useRouter } from "next/navigation"
+import { RotateCcw } from "lucide-react"
 
 export default function Home() {
-    const [quote, setQuote] = useState<string>("")
-    const [categories, setCategories] = useState<string[]>([])
+    const [quote, setQuote] = useState("")
+    const [author, setAuthor] = useState("")
     const router = useRouter()
 
-    useEffect(() => {
-        getRandomQuotation().then((q) => {
-            if (q?.content)
-            {
-                setQuote(q.content)
-            }
-        })
+    const fetchQuote = async () => {
+        const q = await getRandomQuotation()
+        if (q?.content)
+        {
+            setQuote(q.content)
+            setAuthor(q.author)
+        }
+    }
 
-        getAllCategories().then((data) => {
-            if (Array.isArray(data))
-            {
-                setCategories(data.map((cat: any) => cat.name))
-            }
-            else
-            {
-                setCategories([])
-            }
-        })
+    useEffect(() => {
+        fetchQuote()
     }, [])
 
     return (
-        <main className="p-6 flex flex-col gap-6">
-            <div className="flex justify-between items-center">
-                <Button variant="outline" onClick={() => router.push("/quotation/new")}>
-                    Ajouter une citation
+        <main className="p-6 min-h-screen flex flex-col justify-center items-center gap-10">
+            {/* Boutons à droite */}
+            <div className="flex flex-col gap-2 items-end self-end">
+                <Button className="w-[120px]" variant="outline" onClick={() => router.push("/quotation/new")}>
+                    + citation
                 </Button>
-                <Button variant="default" onClick={() => router.push("/category/new")}>
-                    Ajouter une catégorie
+                <Button className="w-[120px]" variant="default" onClick={() => router.push("/category/new")}>
+                    + catégorie
                 </Button>
             </div>
 
-            <div className="flex gap-4">
-                <Button variant="secondary">{categories[0] || "Catégorie"}</Button>
-                <Button variant="default">{quote || "Citation"}</Button>
+            {/* Citation affichée */}
+            <div className="max-w-xl text-center italic text-2xl font-light leading-relaxed">
+                “{quote || "Chargement..."}”
+                <div className="mt-4 text-right not-italic text-base font-medium">
+                    — {author || "..."}
+                </div>
             </div>
+
+            {/* Bouton reroll */}
+            <Button variant="ghost" onClick={fetchQuote}>
+                <RotateCcw className="h-5 w-5" />
+            </Button>
         </main>
     )
 }

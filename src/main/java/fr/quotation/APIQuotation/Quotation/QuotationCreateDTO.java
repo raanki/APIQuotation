@@ -1,13 +1,17 @@
 package fr.quotation.APIQuotation.Quotation;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class QuotationDTO
+public class QuotationCreateDTO
 {
-    private Integer id;
+    @NotBlank
     private String content;
+
     private String author;
+
+    @NotNull
     private Integer categoryId;
-    private String categoryName;
 }

@@ -1,11 +1,10 @@
 package fr.quotation.APIQuotation.Quotation;
 
 import fr.quotation.APIQuotation.Category.Category;
-import fr.quotation.APIQuotation.Category.CategoryRepository;
 
 public class QuotationMapper
 {
-    public static Quotation toEntity(QuotationDTO dto, Category category)
+    public static Quotation toEntity(QuotationCreateDTO dto, Category category)
     {
         Quotation q = new Quotation();
         q.setContent(dto.getContent());
@@ -17,6 +16,22 @@ public class QuotationMapper
     public static QuotationDTO toDTO(Quotation q)
     {
         QuotationDTO dto = new QuotationDTO();
+        dto.setId(q.getId());
+        dto.setContent(q.getContent());
+        dto.setAuthor(q.getAuthor());
+
+        if (q.getCategory() != null)
+        {
+            dto.setCategoryId(q.getCategory().getId());
+            dto.setCategoryName(q.getCategory().getName());
+        }
+
+        return dto;
+    }
+
+    public static QuotationCreateDTO toCreateDTO(Quotation q)
+    {
+        QuotationCreateDTO dto = new QuotationCreateDTO();
         dto.setContent(q.getContent());
         dto.setAuthor(q.getAuthor());
         dto.setCategoryId(q.getCategory().getId());

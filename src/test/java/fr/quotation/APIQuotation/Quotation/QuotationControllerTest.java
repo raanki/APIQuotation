@@ -31,14 +31,14 @@ class QuotationControllerTest {
     private QuotationService service;
 
     private ObjectMapper mapper;
-    private QuotationDTO dto;
+    private QuotationCreateDTO dto;
     private Quotation entity;
     private Category category;
 
     @BeforeEach
     void setup() {
         mapper = new ObjectMapper();
-        dto = new QuotationDTO();
+        dto = new QuotationCreateDTO();
         dto.setContent("Quote");
         dto.setAuthor("Author");
         dto.setCategoryId(1);

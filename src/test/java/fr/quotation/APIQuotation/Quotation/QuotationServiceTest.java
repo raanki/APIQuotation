@@ -58,7 +58,7 @@ class QuotationServiceTest {
 
     @Test
     void shouldCreate() {
-        QuotationDTO dto = new QuotationDTO();
+        QuotationCreateDTO dto = new QuotationCreateDTO();
         dto.setContent("Quote");
         dto.setAuthor("Author");
         dto.setCategoryId(1);
@@ -72,7 +72,7 @@ class QuotationServiceTest {
 
     @Test
     void shouldUpdate() {
-        QuotationDTO dto = new QuotationDTO();
+        QuotationCreateDTO dto = new QuotationCreateDTO();
         dto.setContent("Updated");
         dto.setAuthor("Changed");
         dto.setCategoryId(1);

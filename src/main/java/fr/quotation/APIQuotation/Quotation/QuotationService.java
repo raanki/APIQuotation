@@ -30,14 +30,14 @@ public class QuotationService
         return quotationRepo.findById(id).orElse(null);
     }
 
-    public Quotation create(QuotationDTO dto)
+    public Quotation create(QuotationCreateDTO dto)
     {
         Category category = categoryRepo.findById(dto.getCategoryId()).orElseThrow();
         Quotation q = QuotationMapper.toEntity(dto, category);
         return quotationRepo.save(q);
     }
 
-    public Quotation update(Integer id, QuotationDTO dto)
+    public Quotation update(Integer id, QuotationCreateDTO dto)
     {
         Quotation q = quotationRepo.findById(id).orElseThrow();
         q.setContent(dto.getContent());

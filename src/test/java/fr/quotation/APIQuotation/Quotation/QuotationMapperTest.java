@@ -10,7 +10,7 @@ class QuotationMapperTest {
 
     @Test
     void shouldMapDtoToEntity() {
-        QuotationDTO dto = new QuotationDTO();
+        QuotationCreateDTO dto = new QuotationCreateDTO();
         dto.setContent("Test");
         dto.setAuthor("Author");
         dto.setCategoryId(1);

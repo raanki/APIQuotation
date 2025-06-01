@@ -34,13 +34,13 @@ public class QuotationController
     }
 
     @PostMapping
-    public QuotationDTO create(@Valid @RequestBody QuotationDTO dto)
+    public QuotationCreateDTO create(@Valid @RequestBody QuotationCreateDTO dto)
     {
-        return QuotationMapper.toDTO(service.create(dto));
+        return QuotationMapper.toCreateDTO(service.create(dto));
     }
 
     @PutMapping("/{id}")
-    public QuotationDTO update(@PathVariable Integer id, @Valid @RequestBody QuotationDTO dto)
+    public QuotationDTO update(@PathVariable Integer id, @Valid @RequestBody QuotationCreateDTO dto)
     {
         return QuotationMapper.toDTO(service.update(id, dto));
     }
@@ -57,7 +57,7 @@ public class QuotationController
         Quotation q = service.getRandom();
         return (q != null)
                 ? ResponseEntity.ok(QuotationMapper.toDTO(q))
-                : ResponseEntity.ok().body(new QuotationDTO());
+                : ResponseEntity.ok().body(new QuotationCreateDTO());
     }
 
 
