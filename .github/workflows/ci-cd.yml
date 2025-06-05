@@ -70,8 +70,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 21
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Build Spring Boot JAR
+        run: ./gradlew build
+
       - name: Run Docker Compose with K6
         run: docker compose up --build --exit-code-from k6
+
 
 
 
