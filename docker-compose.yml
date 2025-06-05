@@ -59,6 +59,17 @@ services:
     depends_on:
       - app
 
+  k6:
+    image: grafana/k6
+    container_name: k6-load-test
+    volumes:
+      - ./tests:/scripts
+    depends_on:
+      - app
+      - db
+    entrypoint: [
+      "k6", "run", "/scripts/load-test.js"
+    ]
 
 
 networks:

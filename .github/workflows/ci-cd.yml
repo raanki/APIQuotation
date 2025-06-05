@@ -66,27 +66,13 @@ jobs:
 
   load-test-k6:
     runs-on: ubuntu-latest
-    services:
-      docker:
-        image: docker:20.10.16
-        options: --privileged
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set up Docker Compose
-        run: |
-          docker compose up -d --build
-          sleep 20  # attendre que les services soient prêts
+      - name: Run Docker Compose with K6
+        run: docker compose up --build --exit-code-from k6
 
-      - name: Install k6
-        run: |
-          curl -sSL https://github.com/grafana/k6/releases/download/v0.49.0/k6-v0.49.0-linux-amd64.tar.gz | tar xvz
-          sudo mv k6-v0.49.0-linux-amd64/k6 /usr/local/bin
-
-      - name: Run k6 test
-        run: |
-          k6 run src/test/k6/all.js 
 
 
 

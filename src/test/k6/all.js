@@ -8,13 +8,13 @@ export let options = {
 
 export default function () {
     group('Test /quotations', function () {
-        const res = http.get('http://localhost:8080/quotations');
+        const res = http.get('http://app:8080/quotations');
 
         check(res, { 'status is 200': (r) => r.status === 200 });
     });
 
     group('Test /categories', function () {
-        const res = http.get('http://localhost:8080/categories');
+        const res = http.get('http://app:8080/categories');
         check(res, { 'status is 200': (r) => r.status === 200 });
     });
 
