@@ -75,8 +75,9 @@ jobs:
       - name: Start backend
         run: docker compose up -d db app
 
-      - name: Wait for backend
-        run: docker compose run --rm waiter
+      - name: Wait for backend to be ready
+        run: docker compose up --abort-on-container-exit waiter
+
 
       - name: Run k6 load test
         run: |
