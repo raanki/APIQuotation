@@ -1,0 +1,96 @@
+﻿#name: CI/CD Pipeline
+#
+#on:
+#  push:
+#    branches: [ main ]
+#  pull_request:
+#    branches: [ main ]
+#
+#jobs:
+#  test-category:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      - name: Set up Java
+#        uses: actions/setup-java@v3
+#        with:
+#          distribution: 'temurin'
+#          java-version: 21
+#
+#      - name: Make gradlew executable
+#        run: chmod +x ./gradlew
+#
+#      - name: Run Category Tests
+#        run: ./gradlew test --tests "fr.quotation.APIQuotation.Category.*"
+#
+#  test-quotation:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      - name: Set up Java
+#        uses: actions/setup-java@v3
+#        with:
+#          distribution: 'temurin'
+#          java-version: 21
+#
+#      - name: Make gradlew executable
+#        run: chmod +x ./gradlew
+#
+#      - name: Run Quotation Tests
+#        run: ./gradlew test --tests "fr.quotation.APIQuotation.Quotation.*"
+#
+#  test-front:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      - name: Setup Node.js
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: 20
+#
+#      - name: Install dependencies
+#        run: |
+#          cd front
+#          npm install --legacy-peer-deps
+#
+#      - name: Run Front Tests
+#        run: |
+#          cd front
+#          npm run test
+#
+#  deploy:
+#    needs: [test-category, test-quotation, test-front]
+#    if: ${{ success() }}
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      - name: Add SSH Key
+#        uses: webfactory/ssh-agent@v0.7.0
+#        with:
+#          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+#
+#      - name: Sync files to VPS
+#        run: |
+#          rsync -az -e "ssh -o StrictHostKeyChecking=no" ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/APIQuotation
+#
+#      - name: Stop and remove previous front container
+#        run: |
+#          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+#            docker stop quotation-front || true
+#            docker rm quotation-front || true
+#          EOF
+#
+#      - name: Rebuild and restart only the front container
+#        run: |
+#          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+#            cd /home/${{ secrets.SSH_USER }}/APIQuotation
+#            docker-compose up --no-deps --build -d front
+#          EOF
