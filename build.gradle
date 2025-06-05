@@ -51,3 +51,11 @@ jar {
 	archiveVersion.set('')
 	archiveClassifier.set('')
 }
+
+
+task k6Run(type: Exec) {
+	description = "Exécute le test de charge K6"
+	group = "verification"
+
+	commandLine 'k6', 'run', "${projectDir}/src/test/k6/quotation.js"
+}
