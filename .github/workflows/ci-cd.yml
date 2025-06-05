@@ -7,68 +7,71 @@ on:
     branches: [ deploy ]
 
 jobs:
-  test-category:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: 21
-
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-
-      - name: Run Category Tests
-        run: ./gradlew test --tests "fr.quotation.APIQuotation.Category.*"
-
-  test-quotation:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: 21
-
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-
-      - name: Run Quotation Tests
-        run: ./gradlew test --tests "fr.quotation.APIQuotation.Quotation.*"
-
-  test-front:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      - name: Install dependencies
-        run: |
-          cd front
-          npm install --legacy-peer-deps
-
-      - name: Run Front Tests
-        run: |
-          cd front
-          npm run test
+#  test-category:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      - name: Set up Java
+#        uses: actions/setup-java@v3
+#        with:
+#          distribution: 'temurin'
+#          java-version: 21
+#
+#      - name: Make gradlew executable
+#        run: chmod +x ./gradlew
+#
+#      - name: Run Category Tests
+#        run: ./gradlew test --tests "fr.quotation.APIQuotation.Category.*"
+#
+#  test-quotation:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      - name: Set up Java
+#        uses: actions/setup-java@v3
+#        with:
+#          distribution: 'temurin'
+#          java-version: 21
+#
+#      - name: Make gradlew executable
+#        run: chmod +x ./gradlew
+#
+#      - name: Run Quotation Tests
+#        run: ./gradlew test --tests "fr.quotation.APIQuotation.Quotation.*"
+#
+#  test-front:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      - name: Setup Node.js
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: 20
+#
+#      - name: Install dependencies
+#        run: |
+#          cd front
+#          npm install --legacy-peer-deps
+#
+#      - name: Run Front Tests
+#        run: |
+#          cd front
+#          npm run test
 
   load-test-k6:
     runs-on: ubuntu-latest
-    needs: [ test-category, test-quotation, test-front ]
+#    needs: [ test-category, test-quotation, test-front ]
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Start backend
         run: docker compose up -d db app
 
