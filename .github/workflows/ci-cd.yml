@@ -80,10 +80,11 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build Spring Boot JAR
-        run: ./gradlew build
+        run: ./gradlew bootJar
 
       - name: Run Docker Compose with K6
         run: docker compose up --build --exit-code-from k6
+
 
 
 
