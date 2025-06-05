@@ -92,7 +92,7 @@ jobs:
 
 
   deploy:
-    needs: [test-category, test-quotation, test-front, load-test-k6]
+    needs: [ test-category, test-quotation, test-front, load-test-k6 ]
     if: ${{ success() }}
     runs-on: ubuntu-latest
     steps:
@@ -108,16 +108,10 @@ jobs:
         run: |
           rsync -az -e "ssh -o StrictHostKeyChecking=no" ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/APIQuotation
 
-      - name: Stop and remove previous front container
-        run: |
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-            docker stop quotation-front || true
-            docker rm quotation-front || true
-          EOF
-
-      - name: Rebuild and restart only the front container
+      - name: Restart stack on VPS
         run: |
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
             cd /home/${{ secrets.SSH_USER }}/APIQuotation
-            docker-compose up --no-deps --build -d front
+            docker compose down
+            docker compose up -d --build
           EOF
