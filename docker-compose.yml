@@ -60,15 +60,17 @@ services:
       - app
 
   waiter:
-    image: busybox:1.35
+    image: alpine:3.19
     depends_on:
       - app
     entrypoint: >
       sh -c "
-      wget -q https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh &&
+      apk add --no-cache curl bash &&
+      curl -s -O https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh &&
       chmod +x wait-for-it.sh &&
       ./wait-for-it.sh app:8080 -t 600 --strict -- echo '✅ Backend is ready'
       "
+
 
 
 
