@@ -68,7 +68,7 @@ services:
       - app
       - db
     entrypoint: [
-      "k6", "run", "/scripts/load-test.js"
+      "k6", "run", "\src\test\k6\all.js"
     ]
 
 
