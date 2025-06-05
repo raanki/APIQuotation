@@ -1,16 +1,31 @@
-﻿- name: Add SSH Key
-  uses: webfactory/ssh-agent@v0.7.0
-  with:
-    ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+﻿name: Deploy to VPS
 
-- name: Sync files to VPS
-  run: |
-    rsync -az -e "ssh -o StrictHostKeyChecking=no" ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/APIQuotation
+on:
+  push:
+    branches:
+      - main
 
-- name: SSH and restart containers
-  run: |
-    ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-      cd /home/${{ secrets.SSH_USER }}/APIQuotation
-      docker-compose down
-      docker-compose up --build -d
-    EOF
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Add SSH Key
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Sync files to VPS
+        run: |
+          rsync -az -e "ssh -o StrictHostKeyChecking=no" ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/APIQuotation
+
+      - name: SSH and restart containers
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+            cd /home/${{ secrets.SSH_USER }}/APIQuotation
+            docker-compose down
+            docker-compose up --build -d
+          EOF
