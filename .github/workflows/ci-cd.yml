@@ -69,11 +69,11 @@ jobs:
     needs: [ test-category, test-quotation, test-front ]
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Start backend
+        run: docker compose up -d db app
 
-      - name: Set up Docker Compose (with backend, db, and waiter)
-        run: docker compose up --abort-on-container-exit waiter
+      - name: Wait for backend
+        run: docker compose run --rm waiter
 
       - name: Run k6 load test
         run: |
