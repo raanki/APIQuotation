@@ -111,7 +111,7 @@ jobs:
       - name: Restart stack on VPS
         run: |
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << EOF
-            cd /home/${{ secrets.SSH_USER }}/APIQuotation
+            cd ~/APIQuotation
             docker compose down
             docker compose up -d --build
           EOF
