@@ -86,7 +86,7 @@ jobs:
 
       - name: Run k6 test
         run: |
-          k6 run ./tests/load-test.js  # adapte le chemin à ton fichier de test
+          k6 run src/test/k6/all.js 
 
 
 
