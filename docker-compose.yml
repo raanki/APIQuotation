@@ -65,11 +65,11 @@ services:
       - app
     entrypoint: >
       sh -c "
-      apk add --no-cache bash &&
-      wget -q https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh &&
+      curl -s -O https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh &&
       chmod +x wait-for-it.sh &&
       ./wait-for-it.sh app:8080 -t 600 --strict -- echo '✅ Backend is ready'
       "
+
 
 
 volumes:
