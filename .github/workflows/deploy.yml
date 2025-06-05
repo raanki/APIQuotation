@@ -1,12 +1,14 @@
 ﻿name: Deploy to VPS
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["category-test", "quotation-tests"]
+    types:
+      - completed
 
 jobs:
   deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
