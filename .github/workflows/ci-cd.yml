@@ -65,6 +65,7 @@ jobs:
           npm run test
 
   load-test-k6:
+    needs: [test-category, test-quotation, test-front]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
