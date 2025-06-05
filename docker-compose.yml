@@ -60,16 +60,12 @@ services:
       - app
 
   k6:
-    image: grafana/k6
+    build:
+      context: .
+      dockerfile: Dockerfile.k6  # ou Dockerfile si tu l'appelles comme ça
     container_name: k6-load-test
-    volumes:
-      - ./tests:/scripts
     depends_on:
       - app
-      - db
-    entrypoint: [
-      "k6", "run", "/src/test/k6/all.js"
-    ]
 
 
 networks:
