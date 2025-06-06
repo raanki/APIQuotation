@@ -47,7 +47,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "Prometheus"
             },
             "fieldConfig": {
                 "defaults": {
@@ -99,7 +99,7 @@
             "targets": [{
                 "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "Prometheus"
                 },
                 "expr": "up{job=\"quotation-api\"}",
                 "refId": "A"
@@ -110,7 +110,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "Prometheus"
             },
             "fieldConfig": {
                 "defaults": {
@@ -183,7 +183,7 @@
             "targets": [{
                 "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "Prometheus"
                 },
                 "expr": "(time() - process_start_time_seconds{job=\"quotation-api\"})",
                 "legendFormat": "Uptime",
@@ -195,7 +195,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "Prometheus"
             },
             "fieldConfig": {
                 "defaults": {
@@ -242,7 +242,7 @@
             "targets": [{
                 "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "Prometheus"
                 },
                 "expr": "rate(process_cpu_seconds_total{job=\"quotation-api\"}[5m]) * 100",
                 "legendFormat": "CPU Usage",
@@ -267,7 +267,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "Prometheus"
             },
             "fieldConfig": {
                 "defaults": {
@@ -340,7 +340,7 @@
             "targets": [{
                 "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "Prometheus"
                 },
                 "expr": "rate(http_server_requests_seconds_count{job=\"quotation-api\"}[5m])",
                 "legendFormat": "{{method}} {{uri}} ({{status}})",
@@ -352,7 +352,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "Prometheus"
             },
             "fieldConfig": {
                 "defaults": {
@@ -425,7 +425,7 @@
             "targets": [{
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "${DS_PROMETHEUS}"
+                        "uid": "Prometheus"
                     },
                     "expr": "histogram_quantile(0.95, rate(http_server_requests_seconds_bucket{job=\"quotation-api\"}[5m]))",
                     "legendFormat": "95th percentile",
@@ -434,7 +434,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "${DS_PROMETHEUS}"
+                        "uid": "Prometheus"
                     },
                     "expr": "histogram_quantile(0.50, rate(http_server_requests_seconds_bucket{job=\"quotation-api\"}[5m]))",
                     "legendFormat": "50th percentile",
@@ -443,7 +443,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "${DS_PROMETHEUS}"
+                        "uid": "Prometheus"
                     },
                     "expr": "rate(http_server_requests_seconds_sum{job=\"quotation-api\"}[5m]) / rate(http_server_requests_seconds_count{job=\"quotation-api\"}[5m])",
                     "legendFormat": "Average",
@@ -469,7 +469,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "Prometheus"
             },
             "fieldConfig": {
                 "defaults": {
@@ -542,7 +542,7 @@
             "targets": [{
                 "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "Prometheus"
                 },
                 "expr": "rate(http_server_requests_seconds_count{job=\"quotation-api\", uri=~\"/quotations.*\"}[5m])",
                 "legendFormat": "{{method}} {{uri}}",
@@ -554,7 +554,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "Prometheus"
             },
             "fieldConfig": {
                 "defaults": {
@@ -627,7 +627,7 @@
             "targets": [{
                 "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "Prometheus"
                 },
                 "expr": "rate(http_server_requests_seconds_count{job=\"quotation-api\", uri=~\"/categories.*\"}[5m])",
                 "legendFormat": "{{method}} {{uri}}",
@@ -652,7 +652,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "Prometheus"
             },
             "fieldConfig": {
                 "defaults": {
@@ -725,7 +725,7 @@
             "targets": [{
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "${DS_PROMETHEUS}"
+                        "uid": "Prometheus"
                     },
                     "expr": "rate(http_server_requests_seconds_count{job=\"quotation-api\", status=~\"4..\"}[5m])",
                     "legendFormat": "4xx Errors - {{uri}}",
@@ -734,7 +734,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "${DS_PROMETHEUS}"
+                        "uid": "Prometheus"
                     },
                     "expr": "rate(http_server_requests_seconds_count{job=\"quotation-api\", status=~\"5..\"}[5m])",
                     "legendFormat": "5xx Errors - {{uri}}",
@@ -747,7 +747,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "Prometheus"
             },
             "fieldConfig": {
                 "defaults": {
@@ -799,7 +799,7 @@
             "targets": [{
                 "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "Prometheus"
                 },
                 "expr": "rate(http_server_requests_seconds_count{job=\"quotation-api\", status=~\"[45]..\"}[5m]) / rate(http_server_requests_seconds_count{job=\"quotation-api\"}[5m])",
                 "legendFormat": "Error Rate",
@@ -824,7 +824,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "Prometheus"
             },
             "fieldConfig": {
                 "defaults": {
@@ -897,7 +897,7 @@
             "targets": [{
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "${DS_PROMETHEUS}"
+                        "uid": "Prometheus"
                     },
                     "expr": "jvm_memory_used_bytes{job=\"quotation-api\", area=\"heap\"}",
                     "legendFormat": "Heap Used",
@@ -906,7 +906,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "${DS_PROMETHEUS}"
+                        "uid": "Prometheus"
                     },
                     "expr": "jvm_memory_max_bytes{job=\"quotation-api\", area=\"heap\"}",
                     "legendFormat": "Heap Max",
@@ -919,7 +919,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "Prometheus"
             },
             "fieldConfig": {
                 "defaults": {
@@ -992,7 +992,7 @@
             "targets": [{
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "${DS_PROMETHEUS}"
+                        "uid": "Prometheus"
                     },
                     "expr": "jvm_threads_current{job=\"quotation-api\"}",
                     "legendFormat": "Current Threads",
@@ -1001,7 +1001,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "${DS_PROMETHEUS}"
+                        "uid": "Prometheus"
                     },
                     "expr": "jvm_threads_peak{job=\"quotation-api\"}",
                     "legendFormat": "Peak Threads",
@@ -1027,7 +1027,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "Prometheus"
             },
             "fieldConfig": {
                 "defaults": {
@@ -1100,7 +1100,7 @@
             "targets": [{
                 "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "Prometheus"
                 },
                 "expr": "hikaricp_connections{job=\"quotation-api\"}",
                 "legendFormat": "{{pool}} - {{state}}",
@@ -1112,7 +1112,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "Prometheus"
             },
             "fieldConfig": {
                 "defaults": {
@@ -1185,7 +1185,7 @@
             "targets": [{
                 "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "Prometheus"
                 },
                 "expr": "rate(hikaricp_connections_acquire_seconds_sum{job=\"quotation-api\"}[5m]) / rate(hikaricp_connections_acquire_seconds_count{job=\"quotation-api\"}[5m])",
                 "legendFormat": "Average Acquire Time",
