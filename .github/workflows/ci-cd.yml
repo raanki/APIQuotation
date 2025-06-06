@@ -112,10 +112,12 @@ jobs:
         run: |
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
             cd ~/APIQuotation
+            docker-compose down -v --remove-orphans
             docker-compose pull
             docker-compose build
-            docker-compose up -d --remove-orphans
+            docker-compose up -d
           EOF
+      
 
       - name: Confirm deploy
         run: echo "✅ Deployment successful!"
