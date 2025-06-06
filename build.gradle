@@ -52,6 +52,12 @@ jar {
 	archiveClassifier.set('')
 }
 
+bootJar {
+	archiveBaseName.set('app')
+	archiveVersion.set('')
+	archiveClassifier.set('')
+}
+
 
 task k6Run(type: Exec) {
 	description = "Exécute le test de charge K6"
