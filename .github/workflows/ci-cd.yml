@@ -110,17 +110,8 @@ jobs:
 
       - name: Restart stack on VPS
         run: |
-          ssh "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" bash -c "
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << EOF
             cd ~/APIQuotation
-            docker rm -f prometheus || true
-            docker rmi prom/prometheus || true
-            docker volume prune -f || true
-            docker-compose pull
-            docker-compose build
-            docker-compose up -d --remove-orphans --force-recreate
-          "
-      
-
-      - name: Confirm deploy
-        run: echo "✅ Deployment successful!"
-
+            docker-compose down
+            docker-compose up -d --build
+          EOF
